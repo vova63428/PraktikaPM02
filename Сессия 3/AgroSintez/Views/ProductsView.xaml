@@ -1,0 +1,38 @@
+﻿<Page x:Class="AgroSintez.Views.ProductsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Продукция">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Text="Ведение карточек продукции" FontSize="18" FontWeight="Bold" 
+                           Foreground="#2C3E50" Margin="0,0,0,10"/>
+                <TextBlock Text="Справочник выпускаемой продукции" 
+                           Foreground="#7F8C8D" Margin="0,0,0,15"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="🔄 Обновить" Style="{StaticResource PrimaryButton}" 
+                            Click="Refresh_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <DataGrid x:Name="dgProducts" Grid.Row="1" AutoGenerateColumns="False" 
+                  IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding code}" Width="100"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding name}" Width="250"/>
+                <DataGridTextColumn Header="Тип продукции" Binding="{Binding product_type}" Width="120"/>
+                <DataGridTextColumn Header="Форма выпуска" Binding="{Binding release_form}" Width="120"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding status}" Width="100"/>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding created_date}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
