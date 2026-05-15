@@ -1,0 +1,1477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище AgroSintezModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="batch_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="batch_id" Type="int" Nullable="false" />
+          <Property Name="tech_card_step_id" Type="int" Nullable="false" />
+          <Property Name="equipment_id" Type="int" />
+          <Property Name="step_number" Type="int" Nullable="false" />
+          <Property Name="step_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="planned_temperature" Type="int" />
+          <Property Name="actual_temperature" Type="int" />
+          <Property Name="planned_duration_min" Type="int" />
+          <Property Name="actual_duration_min" Type="int" />
+          <Property Name="planned_pressure" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="actual_pressure" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="has_deviation" Type="int" />
+          <Property Name="deviation_description" Type="varchar" MaxLength="500" />
+          <Property Name="operator_comment" Type="varchar" MaxLength="500" />
+          <Property Name="start_time" Type="datetime" />
+          <Property Name="end_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="equipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="equipment_type" Type="varchar" MaxLength="50" />
+          <Property Name="line_number" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="last_calibration_date" Type="date" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="formula_components">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recipe_id" Type="int" Nullable="false" />
+          <Property Name="raw_material_id" Type="int" Nullable="false" />
+          <Property Name="percentage" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="loading_order" Type="int" Nullable="false" />
+          <Property Name="deviation_tolerance" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="500" />
+          <Property Name="is_read" Type="int" />
+          <Property Name="entity_type" Type="varchar" MaxLength="50" />
+          <Property Name="entity_id" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="production_batches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="batch_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="datetime" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="actual_quantity_kg" Type="int" />
+          <Property Name="operator_id" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="production_orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="recipe_id" Type="int" Nullable="false" />
+          <Property Name="tech_card_id" Type="int" Nullable="false" />
+          <Property Name="planned_quantity_kg" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="planned_start_date" Type="date" />
+          <Property Name="created_by_id" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="product_type" Type="varchar" MaxLength="50" />
+          <Property Name="release_form" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="quality_control">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="batch_id" Type="int" />
+          <Property Name="raw_material_batch_id" Type="int" />
+          <Property Name="lab_technician_id" Type="int" Nullable="false" />
+          <Property Name="analysis_date" Type="datetime" />
+          <Property Name="sample_type" Type="varchar" MaxLength="50" />
+          <Property Name="parameter_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="measured_value" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="standard_value" Type="varchar" MaxLength="100" />
+          <Property Name="unit_of_measure" Type="varchar" MaxLength="20" />
+          <Property Name="result" Type="varchar" MaxLength="10" />
+          <Property Name="decision" Type="varchar" MaxLength="50" />
+          <Property Name="lab_comment" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="raw_material_batches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="batch_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="raw_material_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="unit_of_measure" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="receipt_date" Type="date" Nullable="false" />
+          <Property Name="supplier" Type="varchar" MaxLength="255" />
+          <Property Name="lab_status" Type="varchar" MaxLength="50" />
+          <Property Name="used_in_production_batch_id" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="raw_materials">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="50" />
+          <Property Name="unit_of_measure" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="hazard_class" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="recipes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="creation_date" Type="datetime" />
+          <Property Name="created_by_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tech_card_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tech_card_id" Type="int" Nullable="false" />
+          <Property Name="equipment_id" Type="int" />
+          <Property Name="step_number" Type="int" Nullable="false" />
+          <Property Name="step_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="step_type" Type="varchar" MaxLength="50" />
+          <Property Name="planned_temp_min" Type="int" />
+          <Property Name="planned_temp_max" Type="int" />
+          <Property Name="planned_duration_min" Type="int" Nullable="false" />
+          <Property Name="planned_pressure_min" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="planned_pressure_max" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="is_mandatory" Type="int" />
+          <Property Name="instruction" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="technological_cards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="approved_by_id" Type="int" />
+          <Property Name="approval_date" Type="datetime" />
+          <Property Name="created_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="department" Type="varchar" MaxLength="255" />
+          <Property Name="is_active" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="password_hash" Type="nvarchar" MaxLength="256" />
+          <Property Name="password_salt" Type="varchar" MaxLength="128" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_batch_steps_batch">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batch_steps_equipment">
+          <End Role="equipment" Type="Self.equipment" Multiplicity="0..1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batch_steps_tech_card_step">
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tech_card_steps">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="tech_card_step_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batches_operator">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_batches">
+              <PropertyRef Name="operator_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batches_order">
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="1" />
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_batches">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formula_components_raw_material">
+          <End Role="raw_materials" Type="Self.raw_materials" Multiplicity="1" />
+          <End Role="formula_components" Type="Self.formula_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_materials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="formula_components">
+              <PropertyRef Name="raw_material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formula_components_recipe">
+          <End Role="recipes" Type="Self.recipes" Multiplicity="1" />
+          <End Role="formula_components" Type="Self.formula_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recipes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="formula_components">
+              <PropertyRef Name="recipe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notifications_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="notifications" Type="Self.notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notifications">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_created_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="created_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_recipe">
+          <End Role="recipes" Type="Self.recipes" Multiplicity="1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recipes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="recipe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_tech_card">
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="technological_cards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="tech_card_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_batch">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="0..1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_lab_technician">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="lab_technician_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_raw_material_batch">
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="0..1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_material_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="raw_material_batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_raw_material_batches_raw_material">
+          <End Role="raw_materials" Type="Self.raw_materials" Multiplicity="1" />
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_materials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raw_material_batches">
+              <PropertyRef Name="raw_material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_raw_material_batches_used_in">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="0..1" />
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raw_material_batches">
+              <PropertyRef Name="used_in_production_batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recipes_created_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="recipes" Type="Self.recipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="recipes">
+              <PropertyRef Name="created_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recipes_product">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="recipes" Type="Self.recipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="recipes">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_card_steps_card">
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="1" />
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="technological_cards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tech_card_steps">
+              <PropertyRef Name="tech_card_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_card_steps_equipment">
+          <End Role="equipment" Type="Self.equipment" Multiplicity="0..1" />
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tech_card_steps">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_cards_approved_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="technological_cards">
+              <PropertyRef Name="approved_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_cards_product">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="technological_cards">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AgroSintezModelContainer">
+          <EntitySet Name="batch_steps" EntityType="Self.batch_steps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="equipment" EntityType="Self.equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="formula_components" EntityType="Self.formula_components" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notifications" EntityType="Self.notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="production_batches" EntityType="Self.production_batches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="production_orders" EntityType="Self.production_orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quality_control" EntityType="Self.quality_control" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="raw_material_batches" EntityType="Self.raw_material_batches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="raw_materials" EntityType="Self.raw_materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="recipes" EntityType="Self.recipes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tech_card_steps" EntityType="Self.tech_card_steps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="technological_cards" EntityType="Self.technological_cards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_batch_steps_batch" Association="Self.FK_batch_steps_batch">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batch_steps_equipment" Association="Self.FK_batch_steps_equipment">
+            <End Role="equipment" EntitySet="equipment" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batch_steps_tech_card_step" Association="Self.FK_batch_steps_tech_card_step">
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batches_operator" Association="Self.FK_batches_operator">
+            <End Role="users" EntitySet="users" />
+            <End Role="production_batches" EntitySet="production_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batches_order" Association="Self.FK_batches_order">
+            <End Role="production_orders" EntitySet="production_orders" />
+            <End Role="production_batches" EntitySet="production_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formula_components_raw_material" Association="Self.FK_formula_components_raw_material">
+            <End Role="raw_materials" EntitySet="raw_materials" />
+            <End Role="formula_components" EntitySet="formula_components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formula_components_recipe" Association="Self.FK_formula_components_recipe">
+            <End Role="recipes" EntitySet="recipes" />
+            <End Role="formula_components" EntitySet="formula_components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notifications_user" Association="Self.FK_notifications_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="notifications" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_created_by" Association="Self.FK_orders_created_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_recipe" Association="Self.FK_orders_recipe">
+            <End Role="recipes" EntitySet="recipes" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_tech_card" Association="Self.FK_orders_tech_card">
+            <End Role="technological_cards" EntitySet="technological_cards" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_batch" Association="Self.FK_quality_control_batch">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_lab_technician" Association="Self.FK_quality_control_lab_technician">
+            <End Role="users" EntitySet="users" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_raw_material_batch" Association="Self.FK_quality_control_raw_material_batch">
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_raw_material_batches_raw_material" Association="Self.FK_raw_material_batches_raw_material">
+            <End Role="raw_materials" EntitySet="raw_materials" />
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_raw_material_batches_used_in" Association="Self.FK_raw_material_batches_used_in">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recipes_created_by" Association="Self.FK_recipes_created_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="recipes" EntitySet="recipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recipes_product" Association="Self.FK_recipes_product">
+            <End Role="products" EntitySet="products" />
+            <End Role="recipes" EntitySet="recipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_card_steps_card" Association="Self.FK_tech_card_steps_card">
+            <End Role="technological_cards" EntitySet="technological_cards" />
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_card_steps_equipment" Association="Self.FK_tech_card_steps_equipment">
+            <End Role="equipment" EntitySet="equipment" />
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_cards_approved_by" Association="Self.FK_tech_cards_approved_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="technological_cards" EntitySet="technological_cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_cards_product" Association="Self.FK_tech_cards_product">
+            <End Role="products" EntitySet="products" />
+            <End Role="technological_cards" EntitySet="technological_cards" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AgroSintezModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="batch_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="batch_id" Type="Int32" Nullable="false" />
+          <Property Name="tech_card_step_id" Type="Int32" Nullable="false" />
+          <Property Name="equipment_id" Type="Int32" />
+          <Property Name="step_number" Type="Int32" Nullable="false" />
+          <Property Name="step_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="planned_temperature" Type="Int32" />
+          <Property Name="actual_temperature" Type="Int32" />
+          <Property Name="planned_duration_min" Type="Int32" />
+          <Property Name="actual_duration_min" Type="Int32" />
+          <Property Name="planned_pressure" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="actual_pressure" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="has_deviation" Type="Int32" />
+          <Property Name="deviation_description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="operator_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="start_time" Type="DateTime" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="production_batches" Relationship="Self.FK_batch_steps_batch" FromRole="batch_steps" ToRole="production_batches" />
+          <NavigationProperty Name="equipment" Relationship="Self.FK_batch_steps_equipment" FromRole="batch_steps" ToRole="equipment" />
+          <NavigationProperty Name="tech_card_steps" Relationship="Self.FK_batch_steps_tech_card_step" FromRole="batch_steps" ToRole="tech_card_steps" />
+        </EntityType>
+        <EntityType Name="equipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="equipment_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="line_number" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_calibration_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="batch_steps" Relationship="Self.FK_batch_steps_equipment" FromRole="equipment" ToRole="batch_steps" />
+          <NavigationProperty Name="tech_card_steps" Relationship="Self.FK_tech_card_steps_equipment" FromRole="equipment" ToRole="tech_card_steps" />
+        </EntityType>
+        <EntityType Name="formula_components">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recipe_id" Type="Int32" Nullable="false" />
+          <Property Name="raw_material_id" Type="Int32" Nullable="false" />
+          <Property Name="percentage" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="loading_order" Type="Int32" Nullable="false" />
+          <Property Name="deviation_tolerance" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="raw_materials" Relationship="Self.FK_formula_components_raw_material" FromRole="formula_components" ToRole="raw_materials" />
+          <NavigationProperty Name="recipes" Relationship="Self.FK_formula_components_recipe" FromRole="formula_components" ToRole="recipes" />
+        </EntityType>
+        <EntityType Name="notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="is_read" Type="Int32" />
+          <Property Name="entity_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entity_id" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="users" Relationship="Self.FK_notifications_user" FromRole="notifications" ToRole="users" />
+        </EntityType>
+        <EntityType Name="production_batches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="batch_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="DateTime" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="actual_quantity_kg" Type="Int32" />
+          <Property Name="operator_id" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="batch_steps" Relationship="Self.FK_batch_steps_batch" FromRole="production_batches" ToRole="batch_steps" />
+          <NavigationProperty Name="users" Relationship="Self.FK_batches_operator" FromRole="production_batches" ToRole="users" />
+          <NavigationProperty Name="production_orders" Relationship="Self.FK_batches_order" FromRole="production_batches" ToRole="production_orders" />
+          <NavigationProperty Name="quality_control" Relationship="Self.FK_quality_control_batch" FromRole="production_batches" ToRole="quality_control" />
+          <NavigationProperty Name="raw_material_batches" Relationship="Self.FK_raw_material_batches_used_in" FromRole="production_batches" ToRole="raw_material_batches" />
+        </EntityType>
+        <EntityType Name="production_orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recipe_id" Type="Int32" Nullable="false" />
+          <Property Name="tech_card_id" Type="Int32" Nullable="false" />
+          <Property Name="planned_quantity_kg" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="planned_start_date" Type="DateTime" Precision="0" />
+          <Property Name="created_by_id" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="production_batches" Relationship="Self.FK_batches_order" FromRole="production_orders" ToRole="production_batches" />
+          <NavigationProperty Name="users" Relationship="Self.FK_orders_created_by" FromRole="production_orders" ToRole="users" />
+          <NavigationProperty Name="recipes" Relationship="Self.FK_orders_recipe" FromRole="production_orders" ToRole="recipes" />
+          <NavigationProperty Name="technological_cards" Relationship="Self.FK_orders_tech_card" FromRole="production_orders" ToRole="technological_cards" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="release_form" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="recipes" Relationship="Self.FK_recipes_product" FromRole="products" ToRole="recipes" />
+          <NavigationProperty Name="technological_cards" Relationship="Self.FK_tech_cards_product" FromRole="products" ToRole="technological_cards" />
+        </EntityType>
+        <EntityType Name="quality_control">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="batch_id" Type="Int32" />
+          <Property Name="raw_material_batch_id" Type="Int32" />
+          <Property Name="lab_technician_id" Type="Int32" Nullable="false" />
+          <Property Name="analysis_date" Type="DateTime" Precision="3" />
+          <Property Name="sample_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="parameter_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="measured_value" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="standard_value" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="unit_of_measure" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="result" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="decision" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lab_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="production_batches" Relationship="Self.FK_quality_control_batch" FromRole="quality_control" ToRole="production_batches" />
+          <NavigationProperty Name="users" Relationship="Self.FK_quality_control_lab_technician" FromRole="quality_control" ToRole="users" />
+          <NavigationProperty Name="raw_material_batches" Relationship="Self.FK_quality_control_raw_material_batch" FromRole="quality_control" ToRole="raw_material_batches" />
+        </EntityType>
+        <EntityType Name="raw_material_batches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="batch_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="raw_material_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="12" Scale="3" Nullable="false" />
+          <Property Name="unit_of_measure" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="receipt_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="lab_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="used_in_production_batch_id" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="production_batches" Relationship="Self.FK_raw_material_batches_used_in" FromRole="raw_material_batches" ToRole="production_batches" />
+          <NavigationProperty Name="quality_control" Relationship="Self.FK_quality_control_raw_material_batch" FromRole="raw_material_batches" ToRole="quality_control" />
+          <NavigationProperty Name="raw_materials" Relationship="Self.FK_raw_material_batches_raw_material" FromRole="raw_material_batches" ToRole="raw_materials" />
+        </EntityType>
+        <EntityType Name="raw_materials">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="unit_of_measure" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hazard_class" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="formula_components" Relationship="Self.FK_formula_components_raw_material" FromRole="raw_materials" ToRole="formula_components" />
+          <NavigationProperty Name="raw_material_batches" Relationship="Self.FK_raw_material_batches_raw_material" FromRole="raw_materials" ToRole="raw_material_batches" />
+        </EntityType>
+        <EntityType Name="recipes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="creation_date" Type="DateTime" Precision="3" />
+          <Property Name="created_by_id" Type="Int32" />
+          <NavigationProperty Name="formula_components" Relationship="Self.FK_formula_components_recipe" FromRole="recipes" ToRole="formula_components" />
+          <NavigationProperty Name="production_orders" Relationship="Self.FK_orders_recipe" FromRole="recipes" ToRole="production_orders" />
+          <NavigationProperty Name="products" Relationship="Self.FK_recipes_product" FromRole="recipes" ToRole="products" />
+          <NavigationProperty Name="users" Relationship="Self.FK_recipes_created_by" FromRole="recipes" ToRole="users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tech_card_steps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tech_card_id" Type="Int32" Nullable="false" />
+          <Property Name="equipment_id" Type="Int32" />
+          <Property Name="step_number" Type="Int32" Nullable="false" />
+          <Property Name="step_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="step_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="planned_temp_min" Type="Int32" />
+          <Property Name="planned_temp_max" Type="Int32" />
+          <Property Name="planned_duration_min" Type="Int32" Nullable="false" />
+          <Property Name="planned_pressure_min" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="planned_pressure_max" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="is_mandatory" Type="Int32" />
+          <Property Name="instruction" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="batch_steps" Relationship="Self.FK_batch_steps_tech_card_step" FromRole="tech_card_steps" ToRole="batch_steps" />
+          <NavigationProperty Name="equipment" Relationship="Self.FK_tech_card_steps_equipment" FromRole="tech_card_steps" ToRole="equipment" />
+          <NavigationProperty Name="technological_cards" Relationship="Self.FK_tech_card_steps_card" FromRole="tech_card_steps" ToRole="technological_cards" />
+        </EntityType>
+        <EntityType Name="technological_cards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="approved_by_id" Type="Int32" />
+          <Property Name="approval_date" Type="DateTime" Precision="3" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="production_orders" Relationship="Self.FK_orders_tech_card" FromRole="technological_cards" ToRole="production_orders" />
+          <NavigationProperty Name="products" Relationship="Self.FK_tech_cards_product" FromRole="technological_cards" ToRole="products" />
+          <NavigationProperty Name="tech_card_steps" Relationship="Self.FK_tech_card_steps_card" FromRole="technological_cards" ToRole="tech_card_steps" />
+          <NavigationProperty Name="users" Relationship="Self.FK_tech_cards_approved_by" FromRole="technological_cards" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="notifications" Relationship="Self.FK_notifications_user" FromRole="users" ToRole="notifications" />
+          <NavigationProperty Name="production_batches" Relationship="Self.FK_batches_operator" FromRole="users" ToRole="production_batches" />
+          <NavigationProperty Name="production_orders" Relationship="Self.FK_orders_created_by" FromRole="users" ToRole="production_orders" />
+          <NavigationProperty Name="quality_control" Relationship="Self.FK_quality_control_lab_technician" FromRole="users" ToRole="quality_control" />
+          <NavigationProperty Name="recipes" Relationship="Self.FK_recipes_created_by" FromRole="users" ToRole="recipes" />
+          <NavigationProperty Name="technological_cards" Relationship="Self.FK_tech_cards_approved_by" FromRole="users" ToRole="technological_cards" />
+          <Property Name="password_hash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="password_salt" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_batch_steps_batch">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batch_steps_equipment">
+          <End Role="equipment" Type="Self.equipment" Multiplicity="0..1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batch_steps_tech_card_step">
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="1" />
+          <End Role="batch_steps" Type="Self.batch_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tech_card_steps">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="batch_steps">
+              <PropertyRef Name="tech_card_step_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_card_steps_equipment">
+          <End Role="equipment" Type="Self.equipment" Multiplicity="0..1" />
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tech_card_steps">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formula_components_raw_material">
+          <End Role="raw_materials" Type="Self.raw_materials" Multiplicity="1" />
+          <End Role="formula_components" Type="Self.formula_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_materials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="formula_components">
+              <PropertyRef Name="raw_material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formula_components_recipe">
+          <End Role="recipes" Type="Self.recipes" Multiplicity="1" />
+          <End Role="formula_components" Type="Self.formula_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recipes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="formula_components">
+              <PropertyRef Name="recipe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notifications_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="notifications" Type="Self.notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notifications">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batches_operator">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_batches">
+              <PropertyRef Name="operator_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batches_order">
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="1" />
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_batches">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_batch">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="0..1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_raw_material_batches_used_in">
+          <End Role="production_batches" Type="Self.production_batches" Multiplicity="0..1" />
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="production_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raw_material_batches">
+              <PropertyRef Name="used_in_production_batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_created_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="created_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_recipe">
+          <End Role="recipes" Type="Self.recipes" Multiplicity="1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recipes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="recipe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_tech_card">
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="1" />
+          <End Role="production_orders" Type="Self.production_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="technological_cards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="production_orders">
+              <PropertyRef Name="tech_card_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recipes_product">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="recipes" Type="Self.recipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="recipes">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_cards_product">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="technological_cards">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_lab_technician">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="lab_technician_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quality_control_raw_material_batch">
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="0..1" />
+          <End Role="quality_control" Type="Self.quality_control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_material_batches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quality_control">
+              <PropertyRef Name="raw_material_batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_raw_material_batches_raw_material">
+          <End Role="raw_materials" Type="Self.raw_materials" Multiplicity="1" />
+          <End Role="raw_material_batches" Type="Self.raw_material_batches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raw_materials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="raw_material_batches">
+              <PropertyRef Name="raw_material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recipes_created_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="recipes" Type="Self.recipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="recipes">
+              <PropertyRef Name="created_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_card_steps_card">
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="1" />
+          <End Role="tech_card_steps" Type="Self.tech_card_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="technological_cards">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tech_card_steps">
+              <PropertyRef Name="tech_card_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tech_cards_approved_by">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="technological_cards" Type="Self.technological_cards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="technological_cards">
+              <PropertyRef Name="approved_by_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AgroSintezEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="batch_steps" EntityType="Self.batch_steps" />
+          <EntitySet Name="equipment" EntityType="Self.equipment" />
+          <EntitySet Name="formula_components" EntityType="Self.formula_components" />
+          <EntitySet Name="notifications" EntityType="Self.notifications" />
+          <EntitySet Name="production_batches" EntityType="Self.production_batches" />
+          <EntitySet Name="production_orders" EntityType="Self.production_orders" />
+          <EntitySet Name="products" EntityType="Self.products" />
+          <EntitySet Name="quality_control" EntityType="Self.quality_control" />
+          <EntitySet Name="raw_material_batches" EntityType="Self.raw_material_batches" />
+          <EntitySet Name="raw_materials" EntityType="Self.raw_materials" />
+          <EntitySet Name="recipes" EntityType="Self.recipes" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tech_card_steps" EntityType="Self.tech_card_steps" />
+          <EntitySet Name="technological_cards" EntityType="Self.technological_cards" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="FK_batch_steps_batch" Association="Self.FK_batch_steps_batch">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batch_steps_equipment" Association="Self.FK_batch_steps_equipment">
+            <End Role="equipment" EntitySet="equipment" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batch_steps_tech_card_step" Association="Self.FK_batch_steps_tech_card_step">
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+            <End Role="batch_steps" EntitySet="batch_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_card_steps_equipment" Association="Self.FK_tech_card_steps_equipment">
+            <End Role="equipment" EntitySet="equipment" />
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formula_components_raw_material" Association="Self.FK_formula_components_raw_material">
+            <End Role="raw_materials" EntitySet="raw_materials" />
+            <End Role="formula_components" EntitySet="formula_components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formula_components_recipe" Association="Self.FK_formula_components_recipe">
+            <End Role="recipes" EntitySet="recipes" />
+            <End Role="formula_components" EntitySet="formula_components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notifications_user" Association="Self.FK_notifications_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="notifications" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batches_operator" Association="Self.FK_batches_operator">
+            <End Role="users" EntitySet="users" />
+            <End Role="production_batches" EntitySet="production_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_batches_order" Association="Self.FK_batches_order">
+            <End Role="production_orders" EntitySet="production_orders" />
+            <End Role="production_batches" EntitySet="production_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_batch" Association="Self.FK_quality_control_batch">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_raw_material_batches_used_in" Association="Self.FK_raw_material_batches_used_in">
+            <End Role="production_batches" EntitySet="production_batches" />
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_created_by" Association="Self.FK_orders_created_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_recipe" Association="Self.FK_orders_recipe">
+            <End Role="recipes" EntitySet="recipes" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_tech_card" Association="Self.FK_orders_tech_card">
+            <End Role="technological_cards" EntitySet="technological_cards" />
+            <End Role="production_orders" EntitySet="production_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recipes_product" Association="Self.FK_recipes_product">
+            <End Role="products" EntitySet="products" />
+            <End Role="recipes" EntitySet="recipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_cards_product" Association="Self.FK_tech_cards_product">
+            <End Role="products" EntitySet="products" />
+            <End Role="technological_cards" EntitySet="technological_cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_lab_technician" Association="Self.FK_quality_control_lab_technician">
+            <End Role="users" EntitySet="users" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quality_control_raw_material_batch" Association="Self.FK_quality_control_raw_material_batch">
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+            <End Role="quality_control" EntitySet="quality_control" />
+          </AssociationSet>
+          <AssociationSet Name="FK_raw_material_batches_raw_material" Association="Self.FK_raw_material_batches_raw_material">
+            <End Role="raw_materials" EntitySet="raw_materials" />
+            <End Role="raw_material_batches" EntitySet="raw_material_batches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recipes_created_by" Association="Self.FK_recipes_created_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="recipes" EntitySet="recipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_card_steps_card" Association="Self.FK_tech_card_steps_card">
+            <End Role="technological_cards" EntitySet="technological_cards" />
+            <End Role="tech_card_steps" EntitySet="tech_card_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tech_cards_approved_by" Association="Self.FK_tech_cards_approved_by">
+            <End Role="users" EntitySet="users" />
+            <End Role="technological_cards" EntitySet="technological_cards" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AgroSintezModelContainer" CdmEntityContainer="AgroSintezEntities">
+          <EntitySetMapping Name="batch_steps">
+            <EntityTypeMapping TypeName="AgroSintezModel.batch_steps">
+              <MappingFragment StoreEntitySet="batch_steps">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="tech_card_step_id" ColumnName="tech_card_step_id" />
+                <ScalarProperty Name="equipment_id" ColumnName="equipment_id" />
+                <ScalarProperty Name="step_number" ColumnName="step_number" />
+                <ScalarProperty Name="step_name" ColumnName="step_name" />
+                <ScalarProperty Name="planned_temperature" ColumnName="planned_temperature" />
+                <ScalarProperty Name="actual_temperature" ColumnName="actual_temperature" />
+                <ScalarProperty Name="planned_duration_min" ColumnName="planned_duration_min" />
+                <ScalarProperty Name="actual_duration_min" ColumnName="actual_duration_min" />
+                <ScalarProperty Name="planned_pressure" ColumnName="planned_pressure" />
+                <ScalarProperty Name="actual_pressure" ColumnName="actual_pressure" />
+                <ScalarProperty Name="has_deviation" ColumnName="has_deviation" />
+                <ScalarProperty Name="deviation_description" ColumnName="deviation_description" />
+                <ScalarProperty Name="operator_comment" ColumnName="operator_comment" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipment">
+            <EntityTypeMapping TypeName="AgroSintezModel.equipment">
+              <MappingFragment StoreEntitySet="equipment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="equipment_type" ColumnName="equipment_type" />
+                <ScalarProperty Name="line_number" ColumnName="line_number" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="last_calibration_date" ColumnName="last_calibration_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formula_components">
+            <EntityTypeMapping TypeName="AgroSintezModel.formula_components">
+              <MappingFragment StoreEntitySet="formula_components">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="recipe_id" ColumnName="recipe_id" />
+                <ScalarProperty Name="raw_material_id" ColumnName="raw_material_id" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+                <ScalarProperty Name="loading_order" ColumnName="loading_order" />
+                <ScalarProperty Name="deviation_tolerance" ColumnName="deviation_tolerance" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="AgroSintezModel.notifications">
+              <MappingFragment StoreEntitySet="notifications">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="is_read" ColumnName="is_read" />
+                <ScalarProperty Name="entity_type" ColumnName="entity_type" />
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="production_batches">
+            <EntityTypeMapping TypeName="AgroSintezModel.production_batches">
+              <MappingFragment StoreEntitySet="production_batches">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="batch_number" ColumnName="batch_number" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="actual_quantity_kg" ColumnName="actual_quantity_kg" />
+                <ScalarProperty Name="operator_id" ColumnName="operator_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="production_orders">
+            <EntityTypeMapping TypeName="AgroSintezModel.production_orders">
+              <MappingFragment StoreEntitySet="production_orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="recipe_id" ColumnName="recipe_id" />
+                <ScalarProperty Name="tech_card_id" ColumnName="tech_card_id" />
+                <ScalarProperty Name="planned_quantity_kg" ColumnName="planned_quantity_kg" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="planned_start_date" ColumnName="planned_start_date" />
+                <ScalarProperty Name="created_by_id" ColumnName="created_by_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="AgroSintezModel.products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="release_form" ColumnName="release_form" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quality_control">
+            <EntityTypeMapping TypeName="AgroSintezModel.quality_control">
+              <MappingFragment StoreEntitySet="quality_control">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="raw_material_batch_id" ColumnName="raw_material_batch_id" />
+                <ScalarProperty Name="lab_technician_id" ColumnName="lab_technician_id" />
+                <ScalarProperty Name="analysis_date" ColumnName="analysis_date" />
+                <ScalarProperty Name="sample_type" ColumnName="sample_type" />
+                <ScalarProperty Name="parameter_name" ColumnName="parameter_name" />
+                <ScalarProperty Name="measured_value" ColumnName="measured_value" />
+                <ScalarProperty Name="standard_value" ColumnName="standard_value" />
+                <ScalarProperty Name="unit_of_measure" ColumnName="unit_of_measure" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="decision" ColumnName="decision" />
+                <ScalarProperty Name="lab_comment" ColumnName="lab_comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="raw_material_batches">
+            <EntityTypeMapping TypeName="AgroSintezModel.raw_material_batches">
+              <MappingFragment StoreEntitySet="raw_material_batches">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="batch_number" ColumnName="batch_number" />
+                <ScalarProperty Name="raw_material_id" ColumnName="raw_material_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="unit_of_measure" ColumnName="unit_of_measure" />
+                <ScalarProperty Name="receipt_date" ColumnName="receipt_date" />
+                <ScalarProperty Name="supplier" ColumnName="supplier" />
+                <ScalarProperty Name="lab_status" ColumnName="lab_status" />
+                <ScalarProperty Name="used_in_production_batch_id" ColumnName="used_in_production_batch_id" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="raw_materials">
+            <EntityTypeMapping TypeName="AgroSintezModel.raw_materials">
+              <MappingFragment StoreEntitySet="raw_materials">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="unit_of_measure" ColumnName="unit_of_measure" />
+                <ScalarProperty Name="hazard_class" ColumnName="hazard_class" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recipes">
+            <EntityTypeMapping TypeName="AgroSintezModel.recipes">
+              <MappingFragment StoreEntitySet="recipes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+                <ScalarProperty Name="created_by_id" ColumnName="created_by_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AgroSintezModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tech_card_steps">
+            <EntityTypeMapping TypeName="AgroSintezModel.tech_card_steps">
+              <MappingFragment StoreEntitySet="tech_card_steps">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tech_card_id" ColumnName="tech_card_id" />
+                <ScalarProperty Name="equipment_id" ColumnName="equipment_id" />
+                <ScalarProperty Name="step_number" ColumnName="step_number" />
+                <ScalarProperty Name="step_name" ColumnName="step_name" />
+                <ScalarProperty Name="step_type" ColumnName="step_type" />
+                <ScalarProperty Name="planned_temp_min" ColumnName="planned_temp_min" />
+                <ScalarProperty Name="planned_temp_max" ColumnName="planned_temp_max" />
+                <ScalarProperty Name="planned_duration_min" ColumnName="planned_duration_min" />
+                <ScalarProperty Name="planned_pressure_min" ColumnName="planned_pressure_min" />
+                <ScalarProperty Name="planned_pressure_max" ColumnName="planned_pressure_max" />
+                <ScalarProperty Name="is_mandatory" ColumnName="is_mandatory" />
+                <ScalarProperty Name="instruction" ColumnName="instruction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="technological_cards">
+            <EntityTypeMapping TypeName="AgroSintezModel.technological_cards">
+              <MappingFragment StoreEntitySet="technological_cards">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="approved_by_id" ColumnName="approved_by_id" />
+                <ScalarProperty Name="approval_date" ColumnName="approval_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="AgroSintezModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="password_salt" ColumnName="password_salt" />
+                <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

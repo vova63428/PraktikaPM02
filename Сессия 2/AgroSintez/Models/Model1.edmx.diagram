@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dd72e839162b42d286546fb699b7d6e1" Name="Diagram1">
+        <EntityTypeShape EntityType="AgroSintezModel.batch_steps" Width="1.5" PointX="10.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.equipment" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.formula_components" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.notifications" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.production_batches" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.production_orders" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.products" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.quality_control" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.raw_material_batches" Width="1.5" PointX="11.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.raw_materials" Width="1.5" PointX="9" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.recipes" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.tech_card_steps" Width="1.5" PointX="8.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.technological_cards" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgroSintezModel.users" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <AssociationConnector Association="AgroSintezModel.FK_batch_steps_batch" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_batch_steps_equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_batch_steps_tech_card_step" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_tech_card_steps_equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_formula_components_raw_material" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_formula_components_recipe" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_notifications_user" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_batches_operator" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_batches_order" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_quality_control_batch" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_raw_material_batches_used_in" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_orders_created_by" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_orders_recipe" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_orders_tech_card" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_recipes_product" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_tech_cards_product" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_quality_control_lab_technician" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_quality_control_raw_material_batch" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_raw_material_batches_raw_material" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_recipes_created_by" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_tech_card_steps_card" ManuallyRouted="false" />
+        <AssociationConnector Association="AgroSintezModel.FK_tech_cards_approved_by" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
