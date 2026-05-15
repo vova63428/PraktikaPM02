@@ -1,0 +1,33 @@
+﻿<Page x:Class="AgroSintez.Views.RecipesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Рецептуры">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" Padding="15" CornerRadius="8" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Text="Рецептуры" FontSize="18" FontWeight="Bold" Foreground="#2C3E50"/>
+                <TextBlock Text="Управление рецептурами" Foreground="#7F8C8D" Margin="0,5,0,15"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="➕ Добавить рецептуру" Style="{StaticResource PrimaryButton}" 
+                            Click="AddRecipe_Click" Margin="0,0,10,0"/>
+                    <Button Content="✅ Активировать" Style="{StaticResource PrimaryButton}" 
+                            Click="ActivateRecipe_Click" Margin="0,0,10,0"/>
+                    <Button Content="🔄 Обновить" Style="{StaticResource PrimaryButton}" 
+                            Click="Refresh_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <DataGrid x:Name="dgRecipes" Grid.Row="1" AutoGenerateColumns="True" 
+                  IsReadOnly="True" SelectionMode="Single"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="True"
+                  SelectionChanged="DgRecipes_SelectionChanged"/>
+    </Grid>
+</Page>
