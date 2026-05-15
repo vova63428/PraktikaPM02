@@ -1,0 +1,33 @@
+﻿<Window x:Class="AppDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Аппаратчик - АГРОСИНТЕЗ" Height="400" Width="480"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <Grid Background="#1A252F" Margin="0,0,0,-19">
+        <Border Width="360" Height="345" Background="White" CornerRadius="12"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Margin="57,11,57,34">
+            <StackPanel Margin="25">
+                <TextBlock Text="АГРОСИНТЕЗ" FontSize="24" FontWeight="Bold" 
+                           Foreground="#1A252F" HorizontalAlignment="Center"/>
+                <TextBlock Text="Модуль аппаратчика" FontSize="14" 
+                           Foreground="#7F8C8D" HorizontalAlignment="Center" Margin="0,5,0,25"/>
+
+                <TextBlock Text="Логин" Foreground="#555" Margin="0,0,0,5" FontSize="13"/>
+                <TextBox x:Name="txtLogin" Height="38" Margin="0,0,0,15" 
+                         FontSize="13" Padding="8" />
+
+                <TextBlock Text="Пароль" Foreground="#555" Margin="0,0,0,5" FontSize="13"/>
+                <PasswordBox x:Name="txtPassword" Height="38" Margin="0,0,0,25" 
+                             FontSize="13" Padding="8"/>
+
+                <Button x:Name="btnLogin" Content="ВОЙТИ" Height="42" 
+                        Background="#27AE60" Foreground="White" FontSize="14" FontWeight="Bold"
+                        BorderThickness="0" Cursor="Hand" Click="BtnLogin_Click"/>
+
+                <TextBlock x:Name="txtError" Text="" Foreground="#E74C3C" 
+                           HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="12"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
